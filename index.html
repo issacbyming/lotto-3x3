@@ -1,37 +1,85 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>孟函 の 37 大壽抽抽樂</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; background: #fff; }
-        h1 { margin-top: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(3, 100px); gap: 10px; justify-content: center; margin-top: 20px; }
-        .card { width: 100px; height: 100px; background: #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
-        .card.open { background: #f9f9f9; }
-        img.cover { width: 200px; border-radius: 10px; margin-top: 20px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>孟函 の 37 大壽抽抽樂</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>孟函 の 37 大壽抽抽樂</h1>
-    <img class="cover" src="cover.jpg" alt="封面">
-    <div class="grid" id="grid"></div>
-    <script>
-        const prizes = ['加入我的多鄰國家族 🤗', '付費版記帳軟體 💰', '分享一個好秘密 🍱', '一起去打匹克球 🏃', '一起去體驗做陶 ☕️', '一個來自瑞士或倫敦的禮物 🎁', '一起分享一個平凡的下午，剪一支短影片 📸', '一次蓋洛普優勢測驗 🌟', '一份專屬於孟函的戀愛歌單 🎶'];
-        const grid = document.getElementById('grid');
-        prizes.forEach((p, i) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.textContent = '點我抽';
-            card.onclick = () => {
-                if (!card.classList.contains('open')) {
-                    card.classList.add('open');
-                    card.textContent = p;
-                }
-            };
-            grid.appendChild(card);
-        });
-    </script>
+  <div id="app">
+    <section id="cover" class="screen visible">
+      <div class="cover-card">
+        <div class="cover-image-wrap">
+          <img id="coverImage" alt="封面" class="cover-image" />
+          <div class="cover-image-fallback">上傳封面照片</div>
+        </div>
+        <div class="cover-fields">
+          <input id="gameTitle" class="title-input" type="text" placeholder="輸入遊戲標題（可空白）" />
+          <div class="cover-actions">
+            <label class="btn ghost">
+              上傳封面
+              <input id="coverInput" type="file" accept="image/*" hidden>
+            </label>
+            <button id="editPrizesBtn" class="btn ghost">編輯 9 個獎項</button>
+          </div>
+        </div>
+        <div class="primary-actions">
+          <button id="startBtn" class="btn primary">開始抽！</button>
+          <button id="importBtn" class="btn">載入連結設定</button>
+        </div>
+        <p class="hint">提示：你可以先設定獎品與封面，按「分享此遊戲」產生連結，傳給朋友就能直接玩。</p>
+      </div>
+    </section>
+
+    <section id="game" class="screen">
+      <header class="topbar">
+        <div class="title-wrap"><h1 id="titleDisplay">抽抽樂</h1></div>
+        <div class="tools">
+          <button id="shareBtn" class="btn small">分享此遊戲</button>
+          <button id="resetBtn" class="btn small ghost">重置</button>
+          <button id="backBtn" class="btn small ghost">返回封面</button>
+        </div>
+      </header>
+      <main class="board"><div id="grid" class="grid"></div></main>
+      <footer class="footer"><div class="progress"><span id="openedCount">0</span>/9 已打開</div></footer>
+    </section>
+
+    <dialog id="prizeDialog">
+      <div class="prize-card">
+        <div class="prize-emoji" id="prizeEmoji">🎁</div>
+        <div class="prize-name" id="prizeName">神秘獎品</div>
+        <div class="prize-actions"><button id="closePrizeBtn" class="btn primary">好</button></div>
+      </div>
+    </dialog>
+
+    <dialog id="editDialog">
+      <form method="dialog" class="edit-wrap" id="editForm">
+        <h2>編輯 9 個獎項</h2>
+        <div class="grid edit-grid" id="editGrid"></div>
+        <div class="options">
+          <label class="checkbox"><input type="checkbox" id="allowRepeat"> 開啟重複抽到</label>
+          <label class="checkbox"><input type="checkbox" id="shuffleOnStart" checked> 開始時隨機排列</label>
+        </div>
+        <div class="edit-actions">
+          <button class="btn">取消</button>
+          <button id="savePrizesBtn" class="btn primary" value="save">儲存</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="importDialog">
+      <form method="dialog" class="import-wrap">
+        <h2>載入連結設定</h2>
+        <p>貼上含有「#」的遊戲設定連結（或只貼 # 後面的字串）</p>
+        <textarea id="importText" placeholder="#之後的代碼或完整連結"></textarea>
+        <div class="edit-actions">
+          <button class="btn">取消</button>
+          <button id="applyImportBtn" class="btn primary" value="apply">套用</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
