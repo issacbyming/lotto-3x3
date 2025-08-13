@@ -1,85 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>孟函 の 37 大壽抽抽樂</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <section id="cover" class="screen visible">
-      <div class="cover-card">
-        <div class="cover-image-wrap">
-          <img id="coverImage" alt="封面" class="cover-image" />
-          <div class="cover-image-fallback">上傳封面照片</div>
-        </div>
-        <div class="cover-fields">
-          <input id="gameTitle" class="title-input" type="text" placeholder="輸入遊戲標題（可空白）" />
-          <div class="cover-actions">
-            <label class="btn ghost">
-              上傳封面
-              <input id="coverInput" type="file" accept="image/*" hidden>
-            </label>
-            <button id="editPrizesBtn" class="btn ghost">編輯 9 個獎項</button>
-          </div>
-        </div>
-        <div class="primary-actions">
-          <button id="startBtn" class="btn primary">開始抽！</button>
-          <button id="importBtn" class="btn">載入連結設定</button>
-        </div>
-        <p class="hint">提示：你可以先設定獎品與封面，按「分享此遊戲」產生連結，傳給朋友就能直接玩。</p>
-      </div>
-    </section>
+  <header class="hero">
+    <img src="cover.jpg" alt="封面" class="cover">
+    <h1>孟函 の 37 大壽抽抽樂</h1>
+    <p class="tip">點任一格抽獎（共有九格）</p>
+  </header>
 
-    <section id="game" class="screen">
-      <header class="topbar">
-        <div class="title-wrap"><h1 id="titleDisplay">抽抽樂</h1></div>
-        <div class="tools">
-          <button id="shareBtn" class="btn small">分享此遊戲</button>
-          <button id="resetBtn" class="btn small ghost">重置</button>
-          <button id="backBtn" class="btn small ghost">返回封面</button>
-        </div>
-      </header>
-      <main class="board"><div id="grid" class="grid"></div></main>
-      <footer class="footer"><div class="progress"><span id="openedCount">0</span>/9 已打開</div></footer>
-    </section>
+  <main class="board">
+    <div id="grid" class="grid"></div>
+  </main>
 
-    <dialog id="prizeDialog">
-      <div class="prize-card">
-        <div class="prize-emoji" id="prizeEmoji">🎁</div>
-        <div class="prize-name" id="prizeName">神秘獎品</div>
-        <div class="prize-actions"><button id="closePrizeBtn" class="btn primary">好</button></div>
-      </div>
-    </dialog>
+  <dialog id="prizeDialog">
+    <div class="card dialog-card">
+      <div class="emoji" id="dlgEmoji">🎁</div>
+      <div class="name" id="dlgName">神秘獎品</div>
+      <button id="dlgOK" class="btn">好</button>
+    </div>
+  </dialog>
 
-    <dialog id="editDialog">
-      <form method="dialog" class="edit-wrap" id="editForm">
-        <h2>編輯 9 個獎項</h2>
-        <div class="grid edit-grid" id="editGrid"></div>
-        <div class="options">
-          <label class="checkbox"><input type="checkbox" id="allowRepeat"> 開啟重複抽到</label>
-          <label class="checkbox"><input type="checkbox" id="shuffleOnStart" checked> 開始時隨機排列</label>
-        </div>
-        <div class="edit-actions">
-          <button class="btn">取消</button>
-          <button id="savePrizesBtn" class="btn primary" value="save">儲存</button>
-        </div>
-      </form>
-    </dialog>
-
-    <dialog id="importDialog">
-      <form method="dialog" class="import-wrap">
-        <h2>載入連結設定</h2>
-        <p>貼上含有「#」的遊戲設定連結（或只貼 # 後面的字串）</p>
-        <textarea id="importText" placeholder="#之後的代碼或完整連結"></textarea>
-        <div class="edit-actions">
-          <button class="btn">取消</button>
-          <button id="applyImportBtn" class="btn primary" value="apply">套用</button>
-        </div>
-      </form>
-    </dialog>
-  </div>
+  <footer class="footer">Made with ❤️</footer>
   <script src="script.js"></script>
 </body>
 </html>
